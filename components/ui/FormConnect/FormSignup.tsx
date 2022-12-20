@@ -1,7 +1,6 @@
 import { UserContext } from 'lib/UserContext'
 import { useContext } from 'react'
-
-const API_adr = process.env.API_adr
+import apiConnect from 'lib/apiConnect'
 
 export default function FormSignUp () {
   const { setRole } = useContext(UserContext)
@@ -21,7 +20,7 @@ export default function FormSignUp () {
         role: event.target.role.value
       }
       const JSONdata = JSON.stringify(data)
-      const endpoint = `http://localhost:3000/api/auth/signup`
+      const endpoint = `${apiConnect()}/auth/signup`
       const options = {
         method: 'POST',
         headers: {

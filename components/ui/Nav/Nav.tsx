@@ -4,14 +4,14 @@ import { UserContext } from 'lib/UserContext'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
-const API_adr = process.env.API_adr
+import apiConnect from 'lib/apiConnect'
 
 export default function Nav () {
   const { setRole } = useContext(UserContext)
   const router = useRouter()
 
   const deconnection = async () => {
-    await fetch(`api/auth/logout`, {
+    await fetch(`${apiConnect()}/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

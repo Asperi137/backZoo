@@ -7,6 +7,7 @@ import Zones from 'Types/Zones'
 import InfoEspece from 'components/ui/barreInfo/InfoEspece'
 import InfoEnclos from 'components/ui/barreInfo/InfoEnclos'
 import IsConnected from 'lib/isConnected'
+import apiConnect from 'lib/apiConnect'
 import BoutonAction from 'components/ui/boutonAction/BoutonAction'
 import InfoAnimal from 'components/ui/barreInfo/InfoAnimal'
 import { useState } from 'react'
@@ -15,7 +16,6 @@ import Evenements from 'Types/Evenements'
 import TableauEvent, { tri } from 'components/ui/TableauEvent/TableauEvent'
 import { withSessionSsr } from 'lib/withSession'
 import User from 'Types/User'
-const API_adr = process.env.API_adr
 
 type props = {
   animal: Animaux
@@ -25,7 +25,6 @@ type props = {
   event: Evenements[]
   user: User
   headers: Headers
-  API_adr: string
 }
 
 export default function Index ({
@@ -35,8 +34,7 @@ export default function Index ({
   zone,
   event,
   user,
-  headers,
-  API_adr
+  headers
 }: props): JSX.Element {
   const [position, setPosition] = useState(animal.position)
 
@@ -63,13 +61,11 @@ export default function Index ({
                 headers={headers}
                 cible={animal._id}
                 action={'soigner'}
-                API_adr={API_adr}
               />
             )}
             <BoutonEntrerSortir
               headers={headers}
               cible={animal._id}
-              API_adr={API_adr}
               position={position}
               setPosition={setPosition}
             />
@@ -90,20 +86,20 @@ export const getServerSideProps = withSessionSsr(
   async function getServerSideProps ({ params, req }: Params) {
     const headers = req.headers
     const user = req.session.user
-    const animal = await fetch(`${API_adr}animaux/${params.id}`, {
+    const animal = await fetch(`${apiConnect()}animaux/${params.id}`, {
       headers
     }).then(res => res.json())
-    const espece = await fetch(`${API_adr}especes/${animal.espece}`, {
+    const espece = await fetch(`${apiConnect()}especes/${animal.espece}`, {
       headers
     }).then(res => res.json())
-    const enclos = await fetch(`${API_adr}enclos/${espece.enclos}`, {
+    const enclos = await fetch(`${apiConnect()}enclos/${espece.enclos}`, {
       headers
     }).then(res => res.json())
-    const zone = await fetch(`${API_adr}zones/${enclos.zone}`, {
+    const zone = await fetch(`${apiConnect()}zones/${enclos.zone}`, {
       headers
     }).then(res => res.json())
     const event = tri(
-      await fetch(`${API_adr}evenements/animaux/${params.id}`, {
+      await fetch(`${apiConnect()}evenements/animaux/${params.id}`, {
         headers
       }).then(res => res.json())
     )
@@ -116,8 +112,7 @@ export const getServerSideProps = withSessionSsr(
         zone,
         event,
         user,
-        headers,
-        API_adr
+        headers
       }
     }
   }

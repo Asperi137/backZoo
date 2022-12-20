@@ -10,8 +10,7 @@ import TableauEvent, { tri } from 'components/ui/TableauEvent/TableauEvent'
 import Evenements from 'Types/Evenements'
 import { withSessionSsr } from 'lib/withSession'
 import User from 'Types/User'
-
-const API_adr = process.env.API_adr
+import apiConnect from 'lib/apiConnect'
 
 type props = {
   enclos: Enclos
@@ -20,7 +19,6 @@ type props = {
   event: Evenements[]
   user: User
   headers: Headers
-  API_adr: string
 }
 
 export default function Index ({
@@ -29,8 +27,7 @@ export default function Index ({
   zone,
   event,
   user,
-  headers,
-  API_adr
+  headers
 }: props): JSX.Element {
   return (
     <div className='containerV'>
@@ -65,7 +62,6 @@ export default function Index ({
               cible={enclos._id}
               action={'verifier'}
               headers={headers}
-              API_adr={API_adr}
             />
           )}
           <TableauEvent affichage={event} />
@@ -84,22 +80,22 @@ export const getServerSideProps = withSessionSsr(
     const headers = req.headers
     const user = req.session.user
 
-    const especeslst = await fetch(`${API_adr}especes`, { headers }).then(res =>
-      res.json()
+    const especeslst = await fetch(`${apiConnect()}especes`, { headers }).then(
+      res => res.json()
     )
 
-    const enclos = await fetch(`${API_adr}enclos/${params.id}`, {
+    const enclos = await fetch(`${apiConnect()}enclos/${params.id}`, {
       headers
     }).then(res => res.json())
 
-    const zone = await fetch(`${API_adr}zones/${enclos.zone}`, {
+    const zone = await fetch(`${apiConnect()}zones/${enclos.zone}`, {
       headers
     }).then(res => res.json())
 
     const event = tri(
-      await fetch(`${API_adr}evenements/enclos/${params.id}`, { headers }).then(
-        res => res.json()
-      )
+      await fetch(`${apiConnect()}evenements/enclos/${params.id}`, {
+        headers
+      }).then(res => res.json())
     )
     return {
       props: {
@@ -108,8 +104,7 @@ export const getServerSideProps = withSessionSsr(
         zone,
         event,
         user,
-        headers,
-        API_adr
+        headers
       }
     }
   }

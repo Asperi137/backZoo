@@ -15,12 +15,8 @@ async function loginRoute (
 ) {
   return new Promise((resolve, reject) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'x-requested-with, Content-Type, origin, authorization, accept, client-security-token'
-    )
+    res.setHeader('Access-Control-Allow-Headers', '*')
     res.setHeader('Access-Control-Allow-Methods', 'POST')
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
 
     if (req.method === 'POST') {
       login(req, res)

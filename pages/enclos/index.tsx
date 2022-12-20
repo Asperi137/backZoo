@@ -5,6 +5,7 @@ import IsConnected from 'lib/isConnected'
 import { withSessionSsr } from 'lib/withSession'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import User from 'Types/User'
+import apiConnect from 'lib/apiConnect'
 
 type Props = {
   enclos: Enclos[]
@@ -12,8 +13,6 @@ type Props = {
   user: User
   headers: Headers
 }
-
-const API_adr = process.env.API_adr
 
 export default function Index ({
   enclos,
@@ -55,10 +54,10 @@ export const getServerSideProps = withSessionSsr(
     const headers = req.headers
     const user = req.session.user
 
-    const zones: Zones[] = await fetch(`${API_adr}zones/`, { headers }).then(
-      res => res.json()
-    )
-    const enclos: Enclos[] = await fetch(`${API_adr}enclos/`, {
+    const zones: Zones[] = await fetch(`${apiConnect()}zones/`, {
+      headers
+    }).then(res => res.json())
+    const enclos: Enclos[] = await fetch(`${apiConnect()}enclos/`, {
       headers
     }).then(res => res.json())
     return {

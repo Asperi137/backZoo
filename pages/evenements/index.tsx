@@ -11,8 +11,7 @@ import TableauEvent, { tri } from 'components/ui/TableauEvent/TableauEvent'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import { withSessionSsr } from 'lib/withSession'
 import User from 'Types/User'
-
-const API_adr = process.env.API_adr
+import apiConnect from 'lib/apiConnect'
 
 type Props = {
   evenements: Evenements[]
@@ -23,7 +22,6 @@ type Props = {
   Type_evenements: Type_evenements[]
   user: User
   headers: Headers
-  API_adr: string
 }
 
 export default function Index ({
@@ -34,15 +32,14 @@ export default function Index ({
   zones,
   Type_evenements,
   user,
-  headers,
-  API_adr
+  headers
 }: Props) {
   const [affichage, setAffichage] = useState<Evenements[]>(tri(evenements))
   const [choix, setChoix] = useState<string>('tout')
   const [choixT, setChoixT] = useState<string>('')
 
   async function filtrage (): Promise<void> {
-    let resu = await fetch(`${API_adr}evenements`, {
+    let resu = await fetch(`${apiConnect()}evenements`, {
       headers
     }).then(res => res.json())
     if (
@@ -52,7 +49,7 @@ export default function Index ({
       choixT === 'especes' ||
       choixT === 'animaux'
     ) {
-      resu = await fetch(`${API_adr}evenements/${choixT}/${choix}`, {
+      resu = await fetch(`${apiConnect()}evenements/${choixT}/${choix}`, {
         headers
       }).then(res => res.json())
     }
@@ -204,30 +201,30 @@ export const getServerSideProps = withSessionSsr(
     const headers = req.headers
     const user = req.session.user
 
-    const evenements: Evenements[] = await fetch(`${API_adr}evenements`, {
+    const evenements: Evenements[] = await fetch(`${apiConnect()}evenements`, {
       headers
     }).then(res => res.json())
 
     const Type_evenements: Type_evenements[] = await fetch(
-      `${API_adr}evenements/type`,
+      `${apiConnect()}evenements/type`,
       { headers }
     ).then(res => res.json())
 
-    const animaux: Animaux[] = await fetch(`${API_adr}animaux`, {
+    const animaux: Animaux[] = await fetch(`${apiConnect()}animaux`, {
       headers
     }).then(res => res.json())
 
-    const especes: Especes[] = await fetch(`${API_adr}especes`, {
+    const especes: Especes[] = await fetch(`${apiConnect()}especes`, {
       headers
     }).then(res => res.json())
 
-    const enclos: Enclos[] = await fetch(`${API_adr}enclos`, { headers }).then(
-      res => res.json()
-    )
+    const enclos: Enclos[] = await fetch(`${apiConnect()}enclos`, {
+      headers
+    }).then(res => res.json())
 
-    const zones: Zones[] = await fetch(`${API_adr}zones`, { headers }).then(
-      res => res.json()
-    )
+    const zones: Zones[] = await fetch(`${apiConnect()}zones`, {
+      headers
+    }).then(res => res.json())
 
     return {
       props: {
@@ -238,8 +235,7 @@ export const getServerSideProps = withSessionSsr(
         zones,
         Type_evenements,
         user,
-        headers,
-        API_adr
+        headers
       }
     }
   }

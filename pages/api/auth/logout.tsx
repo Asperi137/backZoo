@@ -11,10 +11,7 @@ async function logoutRoute (
 ) {
   return new Promise((resolve, reject) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
-    )
+    res.setHeader('Access-Control-Allow-Headers', '*')
     res.setHeader('Access-Control-Allow-Methods', ' POST')
 
     if (req.method === 'POST') {

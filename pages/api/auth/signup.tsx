@@ -3,7 +3,6 @@ import User from 'Types/User'
 import mongooseConnect from 'lib/mongooseConnect'
 import ResponseError from 'Types/ResponseError'
 import { signup } from 'controllers/user'
-import { redirect } from 'next/dist/server/api-utils'
 
 mongooseConnect()
 
@@ -13,10 +12,7 @@ export default function Handler (
 ) {
   return new Promise((resolve, reject) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
-    )
+    res.setHeader('Access-Control-Allow-Headers', '*')
     res.setHeader('Access-Control-Allow-Methods', ' POST')
 
     if (req.method === 'POST') {

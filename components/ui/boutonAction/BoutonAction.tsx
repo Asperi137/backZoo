@@ -1,21 +1,14 @@
 import { UserContext } from 'lib/UserContext'
 import { useContext, useState } from 'react'
-
-const API_adr = process.env.API_adr
+import apiConnect from 'lib/apiConnect'
 
 type props = {
   cible: string
   action: string
   headers: Headers
-  API_adr: string
 }
 
-export default function BoutonAction ({
-  cible,
-  action,
-  headers,
-  API_adr
-}: props) {
+export default function BoutonAction ({ cible, action, headers }: props) {
   const { role } = useContext(UserContext)
   const [verif, setverif] = useState('')
 
@@ -72,7 +65,7 @@ export default function BoutonAction ({
       },
       body: JSONdata
     }
-    fetch(`${API_adr}${type}/${action}`, options)
+    fetch(`${apiConnect()}${type}/${action}`, options)
     setverif('')
   }
   function annuler (event: any) {

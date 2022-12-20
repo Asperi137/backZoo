@@ -6,8 +6,7 @@ import Evenements from 'Types/Evenements'
 import EvenementsM from 'models/evenements'
 import Especes from 'Types/Especes'
 import Enclos from 'Types/Enclos'
-
-const API_adr = process.env.API_adr
+import apiConnect from 'lib/apiConnect'
 
 export function createAnimal (
   req: NextApiRequest,
@@ -63,29 +62,34 @@ export async function agirSurAnimaux (
   req: NextApiRequest,
   res: NextApiResponse<Evenements | ResponseError>
 ) {
+  let body = req.body
+  if (typeof body === 'string') {
+    body = JSON.parse(req.body)
+  }
+
   const date = Date.now()
 
   const animal: Animaux = await fetch(
-    `${API_adr}animaux/${req.body.animal}`
+    `${apiConnect()}animaux/${body.animal}`
   ).then(res => res.json())
 
   const espece: Especes = await fetch(
-    `${API_adr}especes/${animal.espece}`
+    `${apiConnect()}especes/${animal.espece}`
   ).then(res => res.json())
 
-  const enclos: Enclos = await fetch(`${API_adr}enclos/${espece.enclos}`).then(
-    res => res.json()
-  )
+  const enclos: Enclos = await fetch(
+    `${apiConnect()}enclos/${espece.enclos}`
+  ).then(res => res.json())
 
   const evenement = new EvenementsM({
-    _id: `${date}_${action}_${req.body.espece}`,
-    createur: req.body.createur,
+    _id: `${date}_${action}_${body.espece}`,
+    createur: body.createur,
     type: action,
-    animal: req.body.animal,
+    animal: body.animal,
     espece: espece._id,
     enclos: enclos._id,
     zone: enclos.zone,
-    observations: req.body.observations
+    observations: body.observations
   })
 
   let updated: boolean = false

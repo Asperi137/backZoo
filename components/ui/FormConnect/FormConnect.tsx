@@ -32,7 +32,7 @@ export default function FormConnect () {
         password: event.target.password.value
       }
       const JSONdata = JSON.stringify(data)
-      const endpoint = `http://localhost:3000/api/auth/login`
+      const endpoint = `api/auth/login`
       const options = {
         method: 'POST',
         headers: {

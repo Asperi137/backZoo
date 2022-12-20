@@ -4,8 +4,7 @@ import Enclos from 'Types/Enclos'
 import EnclosM from 'models/enclos'
 import EvenementsM from 'models/evenements'
 import Evenements from 'Types/Evenements'
-
-const API_adr = process.env.API_adr
+import apiConnect from 'lib/apiConnect'
 
 export function creatEnclos (
   req: NextApiRequest,
@@ -61,21 +60,25 @@ export async function agirSurEnclos (
   req: NextApiRequest,
   res: NextApiResponse<Evenements | ResponseError>
 ) {
+  let body = req.body
+  if (typeof body === 'string') {
+    body = JSON.parse(req.body)
+  }
   const date = Date.now()
 
   const enclos: Enclos = await fetch(
-    `${API_adr}enclos/${req.body.enclos}`
+    `${apiConnect()}enclos/${body.enclos}`
   ).then(res => res.json())
 
   console.log(enclos)
 
   const evenement = new EvenementsM({
-    _id: `${date}_${action}_${req.body.enclos}`,
-    createur: req.body.createur,
+    _id: `${date}_${action}_${body.enclos}`,
+    createur: body.createur,
     type: action,
-    enclos: req.body.enclos,
+    enclos: body.enclos,
     zone: enclos.zone,
-    observations: req.body.observations
+    observations: body.observations
   })
 
   evenement

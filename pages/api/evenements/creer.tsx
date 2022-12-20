@@ -4,6 +4,7 @@ import ResponseError from 'Types/ResponseError'
 import Evenements from 'Types/Evenements'
 import { createEvenement } from 'controllers/evenements'
 import { withSessionRoute } from 'lib/withSession'
+import appMobileConnect from 'lib/appMobileConnect'
 
 mongooseConnect()
 
@@ -14,11 +15,9 @@ async function creer (
   res: NextApiResponse<Evenements | ResponseError>
 ) {
   return new Promise((resolve, reject) => {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
-    )
+    res.setHeader('Access-Control-Allow-Origin', appMobileConnect())
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     res.setHeader('Access-Control-Allow-Methods', ' POST')
     if (req.session.user) {
       if (req.method === 'POST') {

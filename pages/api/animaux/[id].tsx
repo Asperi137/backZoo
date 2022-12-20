@@ -4,6 +4,7 @@ import mongooseConnect from 'lib/mongooseConnect'
 import ResponseError from 'Types/ResponseError'
 import { deleteAnimal, getOneAnimal, modifyAnimal } from 'controllers/animaux'
 import { withSessionRoute } from 'lib/withSession'
+import appMobileConnect from 'lib/appMobileConnect'
 
 mongooseConnect()
 
@@ -51,11 +52,9 @@ async function ID (
   res: NextApiResponse<Animaux | ResponseError>
 ) {
   return new Promise((resolve, reject) => {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader(
-      'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
-    )
+    res.setHeader('Access-Control-Allow-Origin', appMobileConnect())
+    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Credentials', 'true')
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE')
     if (req.method === 'GET') {
       getOneAnimal(req, res)
