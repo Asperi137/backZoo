@@ -2,6 +2,7 @@ import classes from './Header.module.css'
 import Nav from 'components/ui/Nav/Nav'
 import Head from 'next/head'
 import Link from 'next/link'
+import BarreRecherche from '../barreRecherche/BarreRecherche'
 
 export default function Header (): JSX.Element {
   return (
@@ -22,6 +23,7 @@ export default function Header (): JSX.Element {
             <Link href='/'>Mon Zoo à moi !</Link>
           </h1>
           <Nav />
+          <BarreRecherche />
         </div>
       </header>
     </>
