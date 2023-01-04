@@ -4,6 +4,7 @@ import mongooseConnect from 'lib/mongooseConnect'
 import ResponseError from 'Types/ResponseError'
 import { login } from 'controllers/user'
 import { withSessionRoute } from 'lib/withSession'
+import { hasCookie } from 'cookies-next'
 
 mongooseConnect()
 

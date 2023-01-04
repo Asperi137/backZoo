@@ -16,6 +16,7 @@ import Evenements from 'Types/Evenements'
 import TableauEvent, { tri } from 'components/ui/TableauEvent/TableauEvent'
 import { withSessionSsr } from 'lib/withSession'
 import User from 'Types/User'
+import Image from 'next/image'
 
 type props = {
   animal: Animaux
@@ -54,6 +55,13 @@ export default function Index ({
               <InfoAnimal animal={animal} position={position} />
               <InfoEspece espece={espece} />
               <InfoEnclos enclos={enclos} zone={zone} />
+              <Image
+                src={`/images/${animal.espece}.jpg`}
+                alt={`Photo de : ${animal.nom}`}
+                width={200}
+                height={200}
+                className='image'
+              />
             </div>
             {(IsConnected(user) === 'veterinaire' ||
               IsConnected(user) === 'admin') && (

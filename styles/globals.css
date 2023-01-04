@@ -54,6 +54,11 @@ a {
   background-color: teal;
   color: white;
 }
+
+.image {
+  padding: 0.5em;
+}
+
 input {
   padding: 0.5em;
   min-width: 12em;
@@ -82,10 +87,11 @@ form {
 }
 
 table {
+  color: black;
   background-color: teal;
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid teal;
+  border: 1px solid black;
 }
 thead th {
   background-color: teal;
@@ -102,7 +108,7 @@ tbody tr:nth-child(even) {
 th,
 td {
   padding: 0.5em;
-  border: 1px solid teal;
+  border: 1px solid black;
 }
 
 .remplissage {

@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import ResponseError from 'Types/ResponseError'
 import User from 'Types/User'
 import UserM from 'models/user'
+import { getCookies, hasCookie } from 'cookies-next'
 
 export async function signup (
   req: NextApiRequest,
@@ -50,7 +51,8 @@ export async function login (
                 password: '',
                 role: user.role
               }
-              await req.session.save()
+              await req.session.save().then(() => console.log(getCookies()))
+
               res.status(200).json({
                 login: user.login,
                 role: user.role
