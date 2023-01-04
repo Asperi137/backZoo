@@ -46,7 +46,7 @@ export default function Index ({
               {especeslst.map(
                 (especes: Especes) =>
                   especes.enclos === enclos._id && (
-                    <button>
+                    <button key={especes._id}>
                       <Link href='/especes/[id]' as={`/especes/${especes._id}`}>
                         {`${especes.nom}`}
                       </Link>
