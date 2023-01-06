@@ -1,6 +1,8 @@
 html,
 body {
+  background-color: white;
   padding: 0;
+  padding-bottom: 3em;
   margin: 0;
   color: teal;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -19,6 +21,7 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+    background: rgb(0, 25, 25);
   }
   body {
     background: rgb(0, 25, 25);
@@ -47,35 +50,49 @@ a {
 
 .bordered {
   border: solid 1px teal;
+  margin: 0.5em;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  color: teal;
+  border-radius: 2em;
 }
 .description {
   margin: 0;
   padding: 0.5em;
   background-color: teal;
   color: white;
+  border-radius: 2em;
 }
-
 .image {
-  padding: 0.5em;
+  margin: 0.5em;
+  border-radius: 2em;
+}
+video {
+  margin: 2%;
+  width: 96%;
+  max-width: 350px;
+  border-radius: 1em;
 }
 
 input {
-  padding: 0.5em;
-  min-width: 12em;
+  padding: 1em;
+  min-width: 10em;
   margin: 0.5em;
+  border-radius: 2em;
   border: 1px solid rgb(0, 75, 75);
 }
+
 button {
   box-shadow: 3px 3px 3px rgb(0, 75, 75);
   border: 1px solid white;
   background-color: teal;
   color: white;
-  padding: 0.5em;
+  padding: 1em;
+  min-width: 7em;
   margin: 0.5em;
-}
-
-button:hover {
-  color: black;
+  border-radius: 2em;
 }
 
 .btnRetour {
@@ -87,28 +104,33 @@ form {
 }
 
 table {
-  color: black;
   background-color: teal;
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid black;
+  border: 1px solid teal;
+  overflow-y: scroll;
+  scrollbar-color: black;
+  scrollbar-width: thin;
 }
 thead th {
+  color: black;
   background-color: teal;
   border: 1px solid black;
 }
 tbody tr:nth-child(odd) {
+  color: black;
   background-color: gainsboro;
 }
 
 tbody tr:nth-child(even) {
+  color: black;
   background-color: white;
 }
 
 th,
 td {
   padding: 0.5em;
-  border: 1px solid black;
+  border: 1px solid teal;
 }
 
 .remplissage {

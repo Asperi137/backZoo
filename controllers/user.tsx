@@ -51,7 +51,7 @@ export async function login (
                 password: '',
                 role: user.role
               }
-              await req.session.save().then(() => console.log(getCookies()))
+              await req.session.save()
 
               res.status(200).json({
                 login: user.login,

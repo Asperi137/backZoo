@@ -1,7 +1,11 @@
 .Header {
+  width: 100%;
   background-color: teal;
   color: white;
-  padding: 2em;
+  text-align: center;
+  padding: 0.5em 1em 0.5em 1em;
+  border-bottom-right-radius: 3em;
+  border-bottom-left-radius: 3em;
 }
 
 .Header nav a {
@@ -15,4 +19,11 @@
 
 .Header nav a:hover {
   color: black;
+}
+
+.logo_scan {
+  padding: 9px;
+  position: fixed;
+  background-color: white;
+  border-bottom-right-radius: 2em;
 }
