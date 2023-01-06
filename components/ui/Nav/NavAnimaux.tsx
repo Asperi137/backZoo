@@ -21,7 +21,9 @@ export default function NavEspeces () {
   return (
     <>
       <div className={classes.lstV}>
-        <Link href={`/animaux`}>Tous</Link>
+        <u>
+          <Link href={`/animaux`}>Liste des Animaux</Link>
+        </u>
         <br />
         {animauxlst.map(animal => (
           <Link key={animal._id} href={`/animaux/${animal._id}`}>

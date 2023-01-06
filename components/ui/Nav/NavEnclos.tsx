@@ -21,7 +21,9 @@ export default function NavEnclos () {
   return (
     <>
       <div className={classes.lstV}>
-        <Link href={`/enclos`}>Tous</Link>
+        <u>
+          <Link href={`/enclos`}>Liste des Enclos</Link>
+        </u>
         <br />
         {encloslst.map(enclos => (
           <Link key={enclos._id} href={`/enclos/${enclos._id}`}>
