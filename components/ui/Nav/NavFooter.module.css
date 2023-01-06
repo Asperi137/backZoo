@@ -1,0 +1,20 @@
+.contH {
+  gap: 0.5em;
+  text-align: center;
+}
+
+.conth button {
+  width: 206em;
+}
+
+.lstV {
+  font-size: smaller;
+  max-height: 300px;
+  overflow-y: scroll;
+  scrollbar-color: black;
+  scrollbar-width: thin;
+  gap: 1em;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
